@@ -1,6 +1,4 @@
 # Functions-and-Errors
-# Functions-and-Errors
-
 This is the code for module 1:
 
 // SPDX-License-Identifier: MIT
