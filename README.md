@@ -1,39 +1,52 @@
 # Functions-and-Errors
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.25;
 
-contract MicoCrescent {
-    // State variable to store the data
-    uint256 public data;
+contract MicoRhobert {
+    // State variables
+    uint256 public MicoData;
 
-    // Constructor to initialize the data
-    constructor (uint256 _initialData){
-        data = _initialData; // Set the initial data value
+    // Events
+    event DataChanged(uint256 newData);
+
+    // Constructor
+    constructor (uint256 _initialData) {
+        setMicoData(_initialData);
     }
-    
-    // Function to update the data with require
-    function updateDataWithRequire(uint256 _newData) external {
-        // Ensure that the new data is not zero
+
+    // Function to update the data
+    function updateMicoData(uint256 _newData) external {
         require(_newData != 0, "Data cannot be zero");
-
-        // Update the data
-        data = _newData;
+        require(_newData != 10 && _newData != 50, "Data cannot be 10 or 50");
+        
+        setMicoData(_newData);
     }
-    
-    // Function to update the data with assert
-    function updateDataWithAssert(uint256 _newData) external {
-        // Check if the new data is not allowed
-        assert(_newData != 7 && _newData != 42);
 
-        // Update the data
-        data = _newData;
+    // Function to check input
+    function checkInput(uint256 userInput) external pure {
+        require(userInput > 8, "Input must be greater than 8");
     }
-    
-    // Function to update the data with revert
-    function updateDataWithRevert(uint256 _newData) external {
-        // Check if the new data is not allowed
-        if (_newData == 7 || _newData == 42) {
-            revert("Data cannot be 7 or 42");
+
+    // Function to verify counter (if needed)
+    function verifyMicoCounter() external pure {
+    }
+
+    // Error for insufficient balance
+    error InsufficientBalance(uint256 currentBalance, uint256 requiredAmount);
+
+    // Function to check balance
+    function checkMicoBalance(uint256 amount) external view {
+        uint256 balance = address(this).balance;
+        require(balance >= amount, "Insufficient balance");
+    }
+
+    // Internal function to set MicoData and emit event
+    function setMicoData(uint256 _newData) internal {
+        MicoData = _newData;
+        emit DataChanged(_newData);
+    }
+}
+
         }
 
         // Update the data
